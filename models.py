@@ -1,15 +1,19 @@
 from peewee import *
 from flask_login import UserMixin
 
-DATABASE = SqliteDatabase('wines.sqlite')
+# Connect to a Postgres database.
+DATABASE = PostgresqlDatabase('wine_app')
 
-class User(UserMixin, Model):
+class BaseModel(Model):
+	"""A base Model that will use our psql database"""
+	class Meta: database = DATABASE
+
+
+
+class User(UserMixin, BaseModel):
     username = CharField(unique=True)
     password = CharField(unique=True)
-    image = CharField()
-
-    class Meta:
-        database = DATABASE
+    profile_img = CharField()
 
 
 def initialize():
