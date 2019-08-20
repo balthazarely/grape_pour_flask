@@ -1,12 +1,38 @@
 from flask import Flask, g
-
+from flask_cors import CORS
+from flask_login import LoginManager
 import models
+
+#import the blueprint
+from api.user import user
+
 
 DEBUG = True
 PORT = 8000
 
-app = Flask(__name__)
+login_manager = LoginManager() # sets up ability to se up login
+
+app = Flask(__name__, static_url_path="", static_folder="static")
 # this is initializing an instance of the Flask class.
+app.secret_key = "RAN@#$%^&*DOM STRING"
+login_manager.init_app(app) #this sets up session on the app
+
+@login_manager.user_loader
+def load_user(userid):
+    try:
+        return models.User.get(models.User.id == userid)
+    except models.DoesNotExist:
+        return None
+
+
+
+
+
+CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
+
+
+app.register_blueprint(user)
+
 
 @app.before_request
 def before_request():
