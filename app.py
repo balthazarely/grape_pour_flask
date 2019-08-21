@@ -5,6 +5,7 @@ import models
 
 #import the blueprint
 from api.user import user
+from api.beer import beer
 
 
 DEBUG = True
@@ -25,14 +26,11 @@ def load_user(userid):
         return None
 
 
-
-
-
 CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
-
+CORS(beer, origins=['http://localhost:3000'], supports_credentials=True)
 
 app.register_blueprint(user)
-
+app.register_blueprint(beer)
 
 @app.before_request
 def before_request():

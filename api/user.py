@@ -83,8 +83,3 @@ def register():
         del user_dict['password']
         return jsonify(data=user_dict, status={"code": 201, "message": "Success"})
 
-# @user.route('/test', methods=["GET"])
-# def home():
-#     r = requests.get('http://dummy.restapiexample.com/api/v1/employees')
- 
-#     return r.json()

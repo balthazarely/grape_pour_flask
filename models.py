@@ -16,7 +16,7 @@ class User(UserMixin, BaseModel):
     profile_img = CharField()
 
 
-class Wine(BaseModel):
+class Beer(BaseModel):
     api_id = CharField()
     user_id = CharField()
     favorite = IntegerField()
@@ -26,7 +26,7 @@ class Wine(BaseModel):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Wine], safe=True)
+    DATABASE.create_tables([User, Beer], safe=True)
     print("TABLES Created")
     DATABASE.close()
 
