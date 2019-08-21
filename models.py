@@ -13,7 +13,7 @@ class BaseModel(Model):
 class User(UserMixin, BaseModel):
     username = CharField(unique=True)
     password = CharField(unique=True)
-    profile_img = CharField()
+    image = CharField()
 
 
 class Wine(BaseModel):

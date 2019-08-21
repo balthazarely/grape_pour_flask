@@ -44,16 +44,15 @@ def register():
     pay_file = request.files
     # this has the form info from the dict.
     # we change the request object into a dict.
-    payload = request.form.to.dict()
+    payload = request.form.to_dict()
     dict_file = pay_file.to_dict()
 
     print(payload)
     print(dict_file)
 
-    payload['email'].lower() # make email lowercase
     try:
         #check to see if email exisits, if it does let user know. the .get() comes from peeweee
-        models.user.get(models.User.email == payload['email']) # query to find user by their email. if this model is found, responde to client
+        models.User.get(models.User.username == payload['username']) # query to find user by their email. if this model is found, responde to client
         return jsonify(data={}, status={"code": 401, "message": "The user with this name exisits"})
     except models.DoesNotExist: #boolean on the model
         # if model doesnt exisit, we will create/reg this user
@@ -67,7 +66,7 @@ def register():
         payload['image'] = file_picture_path
 
         ## create the row in the table 
-        user = modles.User.create(**payload)
+        user = models.User.create(**payload)
 
         print(type(user)) # => class User user is an instance of 
         login_user(user) #login_user is from flask_login
